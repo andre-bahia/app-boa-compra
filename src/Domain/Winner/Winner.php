@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\Winner;
 
 use App\Domain\Winner\Vo\WinnerDistance;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +20,7 @@ class Winner
     private int $id;
 
     /**
-     * @ORM\Embedded(class="App\Domain\Winner\Vo\WinnerDistance", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Winner\Vo\WinnerDistance", columnPrefix=false)
      */
     private WinnerDistance $distance;
 

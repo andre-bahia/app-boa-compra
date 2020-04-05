@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Company;
 
 use App\Domain\Company\Vo\CompanyFixedValue;
 use App\Domain\Company\Vo\CompanyFixedValueExceedsWeight;
@@ -30,25 +30,25 @@ class Company
 
     /**
      * @var CompanyFixedValue
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValue", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValue", columnPrefix=false)
      */
     private CompanyFixedValue $fixedValue;
 
     /**
      * @var CompanyOnDemandValue
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValue", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValue", columnPrefix=false)
      */
     private CompanyOnDemandValue $onDemandValue;
 
     /**
      * @var CompanyFixedValueExceedsWeight
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValueExceedsWeight", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValueExceedsWeight", columnPrefix=false)
      */
     private CompanyFixedValueExceedsWeight $fixedValueExceedsWeight;
 
     /**
      * @var CompanyOnDemandValueExceedsWeight
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight", columnPrefix=false)
      */
     private CompanyOnDemandValueExceedsWeight $onDemandValueExceedsWeight;
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain;
+namespace App\Domain\Product;
 
 use App\Domain\Product\Vo\ProductName;
 use App\Domain\Product\Vo\ProductWeight;
@@ -21,12 +21,12 @@ class Product
     private int $id;
 
     /**
-     * @ORM\Embedded(class="App\Domain\Product\Vo\ProductName", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Product\Vo\ProductName", columnPrefix=false)
      */
     private ProductName $name;
 
     /**
-     * @ORM\Embedded(class="App\Domain\Product\Vo\ProductWeight", columnPrefix="false")
+     * @ORM\Embedded(class="App\Domain\Product\Vo\ProductWeight", columnPrefix=false)
      */
     private ProductWeight $weight;
 
