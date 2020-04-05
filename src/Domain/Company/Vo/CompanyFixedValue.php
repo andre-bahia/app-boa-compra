@@ -17,7 +17,7 @@ class CompanyFixedValue extends Money
      * @var float
      * @ORM\Column(name="fixed_value", type="decimal", precision=20, scale=6)
      */
-    protected $value;
+    protected float $value;
 
     public function validate()
     {
