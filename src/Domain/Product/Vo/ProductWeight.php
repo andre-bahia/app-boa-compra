@@ -15,7 +15,7 @@ class ProductWeight
      * @var float
      * @ORM\Column(name="weight", type="decimal", precision=20, scale=6)
      */
-    private $weight;
+    private float $weight;
 
     /**
      * ProductWeight constructor.

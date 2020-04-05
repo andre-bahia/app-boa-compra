@@ -5,14 +5,13 @@ namespace App\Domain\Shared\Vo;
 
 abstract class StringValue
 {
-    protected $value;
+    protected string $value;
 
     public function __construct(?string $value)
     {
         $this->value = $value;
         $this->validate();
     }
-
 
     public function value(): ?string
     {

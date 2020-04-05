@@ -10,10 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class WinnerDistance
 {
-    /** @var $value
+    /**
+     * @var float $value
      * @ORM\Column(name="distance", type="decimal", precision=20, scale=6)
      */
-    private $value;
+    private float $value;
 
     public function __construct(float $value)
     {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain\Company;
+namespace App\Domain\Company\Vo;
 
 
 use App\Domain\Shared\Vo\Money;
@@ -11,22 +11,22 @@ use InvalidArgumentException;
 /**
  * @ORM\Embeddable()
  */
-class CompanyOnDemandValue extends Money
+class CompanyFixedValue extends Money
 {
     /**
      * @var float
-     * @ORM\Column(name="on_demand_value", type="decimal", precision=20, scale=6)
+     * @ORM\Column(name="fixed_value", type="decimal", precision=20, scale=6)
      */
     protected $value;
 
     public function validate()
     {
         if (is_null($this->value) || empty($this->value)) {
-            throw new InvalidArgumentException('On Demand value is required');
+            throw new InvalidArgumentException('Fixed value is required');
         }
 
         if ($this->value <= 0) {
-            throw new InvalidArgumentException('On Demand must be greater than 0');
+            throw new InvalidArgumentException('Fixed value must be greater than 0');
         }
     }
 }

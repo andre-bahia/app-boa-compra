@@ -1,7 +1,8 @@
 <?php
 
 
-namespace App\Domain\Company;
+namespace App\Domain\Company\Vo;
+
 use App\Domain\Shared\Vo\StringValue;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,7 @@ class CompanyName extends StringValue
      * @var string
      * @ORM\Column(type="string", name="name")
      */
-    protected $value;
+    protected string $value;
 
     public function validate()
     {

@@ -6,7 +6,7 @@ namespace App\Domain\Shared\Vo;
 
 abstract class Money
 {
-    protected $value;
+    protected float $value;
 
     public function __construct(?float $value)
     {

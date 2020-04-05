@@ -16,7 +16,7 @@ class ProductName extends StringValue
      * @var string
      * @ORM\Column(type="string", name="name")
      */
-    protected $value;
+    protected string $value;
 
     public function validate()
     {
