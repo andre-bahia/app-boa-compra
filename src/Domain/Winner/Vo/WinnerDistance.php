@@ -12,7 +12,7 @@ class WinnerDistance
 {
     /**
      * @var float $value
-     * @ORM\Column(name="distance", type="decimal", precision=20, scale=6)
+     * @ORM\Column(name="distance", type="decimal", precision=8, scale=2)
      */
     private float $value;
 

@@ -14,7 +14,7 @@ class CompanyOnDemandValue extends Money
 {
     /**
      * @var float
-     * @ORM\Column(name="on_demand_value", type="decimal", precision=20, scale=6)
+     * @ORM\Column(name="on_demand_value", type="decimal", precision=5, scale=2)
      */
     protected float $value;
 

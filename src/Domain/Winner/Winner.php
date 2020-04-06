@@ -24,6 +24,11 @@ class Winner
      */
     private WinnerDistance $distance;
 
+    public function __construct(WinnerDistance $distance)
+    {
+        $this->distance = $distance;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -35,13 +40,5 @@ class Winner
     public function getDistance(): WinnerDistance
     {
         return $this->distance;
-    }
-
-    /**
-     * @param WinnerDistance $distance
-     */
-    public function setDistance(WinnerDistance $distance): void
-    {
-        $this->distance = $distance;
     }
 }

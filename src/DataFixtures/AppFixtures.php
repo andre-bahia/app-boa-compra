@@ -1,0 +1,136 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Domain\Company\Company;
+use App\Domain\Company\Vo\CompanyFixedValue;
+use App\Domain\Company\Vo\CompanyFixedValueExceedsWeight;
+use App\Domain\Company\Vo\CompanyName;
+use App\Domain\Company\Vo\CompanyOnDemandValue;
+use App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight;
+use App\Domain\Product\Product;
+use App\Domain\Product\Vo\ProductName;
+use App\Domain\Product\Vo\ProductWeight;
+use App\Domain\ProductsCompaniesWinner\ProductsCompaniesWinner;
+use App\Domain\Winner\Vo\WinnerDistance;
+use App\Domain\Winner\Winner;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class AppFixtures extends Fixture
+{
+    /** @var array|Company  */
+    protected array $companies;
+
+    public function load(ObjectManager $manager)
+    {
+        $this->companies = $this->addCompanies($manager);
+        $this->addProductsAndWinners($manager);
+        $manager->flush();
+    }
+
+    private function addProductsAndWinners(ObjectManager $manager)
+    {
+        $association = [];
+
+        $earphone = new Product();
+        $earphone->setName(new ProductName('Fone de ouvido'));
+        $earphone->setWeight(new ProductWeight(1));
+        $manager->persist($earphone);
+
+        $winnerEarphone1km = new Winner(new WinnerDistance(1));
+        $manager->persist($winnerEarphone1km);
+        $winnerEarphone430km = new Winner(new WinnerDistance(430));
+        $manager->persist($winnerEarphone430km);
+        $winnerEarphone33km = new Winner(new WinnerDistance(33));
+        $manager->persist($winnerEarphone33km);
+        $winnerEarphone50km = new Winner(new WinnerDistance(50));
+        $manager->persist($winnerEarphone50km);
+        $association['earphone'] = [$winnerEarphone1km, $winnerEarphone430km, $winnerEarphone33km, $winnerEarphone50km];
+        $this->associationProductsCompaniesWithWinners($manager, $earphone, $association['earphone']);
+
+        $xBoxControl = new Product();
+        $xBoxControl->setName(new ProductName('Controle de Xbox'));
+        $xBoxControl->setWeight(new ProductWeight(3));
+        $manager->persist($xBoxControl);
+
+        $winnerXBoxControl1km = new Winner(new WinnerDistance(1));
+        $manager->persist($winnerXBoxControl1km);
+        $winnerXBoxControl100km = new Winner(new WinnerDistance(100));
+        $manager->persist($winnerXBoxControl100km);
+        $association['xBoxControl'] = [$winnerXBoxControl1km, $winnerXBoxControl100km];
+        $this->associationProductsCompaniesWithWinners($manager, $xBoxControl, $association['xBoxControl']);
+
+        $gamerPc = new Product();
+        $gamerPc->setName(new ProductName('Pc Gamer'));
+        $gamerPc->setWeight(new ProductWeight(35));
+        $manager->persist($gamerPc);
+
+        $winnerGamerPc1km = new Winner(new WinnerDistance(1));
+        $manager->persist($winnerGamerPc1km);
+        $winnerGamerPc1000km = new Winner(new WinnerDistance(1000));
+        $manager->persist($winnerGamerPc1000km);
+        $association['gamerPc'] = [$winnerGamerPc1km, $winnerGamerPc1000km];
+        $this->associationProductsCompaniesWithWinners($manager, $gamerPc, $association['gamerPc']);
+
+        $gamerKit = new Product();
+        $gamerKit->setName(new ProductName('Kit Gamer'));
+        $gamerKit->setWeight(new ProductWeight(5));
+        $manager->persist($gamerKit);
+
+        $winnerKitGamer = new Winner(new WinnerDistance(1000));
+        $manager->persist($winnerKitGamer);
+        $association['gamerKit'] = [$winnerKitGamer];
+        $this->associationProductsCompaniesWithWinners($manager, $gamerKit, $association['gamerKit']);
+
+        $keyboardEarphone = new Product();
+        $keyboardEarphone->setName(new ProductName('Teclado + Fone'));
+        $keyboardEarphone->setWeight(new ProductWeight(6));
+        $manager->persist($keyboardEarphone);
+
+        $winnerKeyboardEarphone = new Winner(new WinnerDistance(5));
+        $manager->persist($winnerKeyboardEarphone);
+        $association['keyboardEarphone'] = [$winnerKeyboardEarphone];
+        $this->associationProductsCompaniesWithWinners($manager, $keyboardEarphone, $association['keyboardEarphone']);
+    }
+
+    private function addCompanies(ObjectManager $manager)
+    {
+        $boaDex = new Company();
+        $boaDex->setName(new CompanyName('BoaDex'));
+        $boaDex->setFixedValue(new CompanyFixedValue(10.00));
+        $boaDex->setOnDemandValue(new CompanyOnDemandValue(0.05));
+        $manager->persist($boaDex);
+
+        $boaLog = new Company();
+        $boaLog->setName(new CompanyName('BoaLog'));
+        $boaLog->setFixedValue(new CompanyFixedValue(4.30));
+        $boaLog->setOnDemandValue(new CompanyOnDemandValue(0.12));
+        $manager->persist($boaLog);
+
+        $transBoa = new Company();
+        $transBoa->setName(new CompanyName('Transboa'));
+        $transBoa->setFixedValue(new CompanyFixedValue(2.10));
+        $transBoa->setOnDemandValue(new CompanyOnDemandValue(1.10));
+        $transBoa->setFixedValueExceedsWeight(new CompanyFixedValueExceedsWeight(10.00));
+        $transBoa->setOnDemandValueExceedsWeight(new CompanyOnDemandValueExceedsWeight(0.01));
+        $manager->persist($transBoa);
+
+        return [$boaDex, $boaLog, $transBoa];
+    }
+
+    private function associationProductsCompaniesWithWinners(ObjectManager $manager, Product $product, array $winners)
+    {
+        /** @var Company $company */
+        foreach ($this->companies as $company) {
+            /** @var Winner $winner */
+            foreach ($winners as $winner) {
+                $pivot = new ProductsCompaniesWinner();
+                $pivot->setCompany($company);
+                $pivot->setProduct($product);
+                $pivot->setWinner($winner);
+                $manager->persist($pivot);
+            }
+        }
+    }
+}
