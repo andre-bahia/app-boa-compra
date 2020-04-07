@@ -18,6 +18,6 @@ class ProductTest extends TestCase
         $product->setWeight(new ProductWeight(35));
         $this->assertInstanceOf(Product::class, $product);
         $this->assertEquals('Pc Gamer', $product->getName()->value());
-        $this->assertEquals(35, $product->getWeight()->getWeight());
+        $this->assertEquals(35, $product->getWeight()->value());
     }
 }

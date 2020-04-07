@@ -2,11 +2,9 @@
 
 namespace App\Domain\Company;
 
-use App\Domain\Company\Vo\CompanyFixedValue;
-use App\Domain\Company\Vo\CompanyFixedValueExceedsWeight;
 use App\Domain\Company\Vo\CompanyName;
-use App\Domain\Company\Vo\CompanyOnDemandValue;
-use App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,28 +27,15 @@ class Company
     private CompanyName $name;
 
     /**
-     * @var CompanyFixedValue
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValue", columnPrefix=false)
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="CompanyConfiguration", mappedBy="company", cascade={"persist"})
      */
-    private CompanyFixedValue $fixedValue;
+    private Collection $configurations;
 
-    /**
-     * @var CompanyOnDemandValue
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValue", columnPrefix=false)
-     */
-    private CompanyOnDemandValue $onDemandValue;
-
-    /**
-     * @var CompanyFixedValueExceedsWeight
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyFixedValueExceedsWeight", columnPrefix=false)
-     */
-    private CompanyFixedValueExceedsWeight $fixedValueExceedsWeight;
-
-    /**
-     * @var CompanyOnDemandValueExceedsWeight
-     * @ORM\Embedded(class="App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight", columnPrefix=false)
-     */
-    private CompanyOnDemandValueExceedsWeight $onDemandValueExceedsWeight;
+    public function __construct()
+    {
+        $this->configurations = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -73,67 +58,16 @@ class Company
         $this->name = $name;
     }
 
-    /**
-     * @return CompanyFixedValue
-     */
-    public function getFixedValue(): CompanyFixedValue
+    public function addConfiguration(CompanyConfiguration $configuration)
     {
-        return $this->fixedValue;
+        $this->configurations->add($configuration);
     }
 
     /**
-     * @param CompanyFixedValue $fixedValue
+     * @return Collection
      */
-    public function setFixedValue(CompanyFixedValue $fixedValue): void
+    public function getConfigurations(): Collection
     {
-        $this->fixedValue = $fixedValue;
-    }
-
-    /**
-     * @return CompanyOnDemandValue
-     */
-    public function getOnDemandValue(): CompanyOnDemandValue
-    {
-        return $this->onDemandValue;
-    }
-
-    /**
-     * @param CompanyOnDemandValue $onDemandValue
-     */
-    public function setOnDemandValue(CompanyOnDemandValue $onDemandValue): void
-    {
-        $this->onDemandValue = $onDemandValue;
-    }
-
-    /**
-     * @return CompanyFixedValueExceedsWeight
-     */
-    public function getFixedValueExceedsWeight(): CompanyFixedValueExceedsWeight
-    {
-        return $this->fixedValueExceedsWeight;
-    }
-
-    /**
-     * @param CompanyFixedValueExceedsWeight $fixedValueExceedsWeight
-     */
-    public function setFixedValueExceedsWeight(CompanyFixedValueExceedsWeight $fixedValueExceedsWeight): void
-    {
-        $this->fixedValueExceedsWeight = $fixedValueExceedsWeight;
-    }
-
-    /**
-     * @return CompanyOnDemandValueExceedsWeight
-     */
-    public function getOnDemandValueExceedsWeight(): CompanyOnDemandValueExceedsWeight
-    {
-        return $this->onDemandValueExceedsWeight;
-    }
-
-    /**
-     * @param CompanyOnDemandValueExceedsWeight $onDemandValueExceedsWeight
-     */
-    public function setOnDemandValueExceedsWeight(CompanyOnDemandValueExceedsWeight $onDemandValueExceedsWeight): void
-    {
-        $this->onDemandValueExceedsWeight = $onDemandValueExceedsWeight;
+        return $this->configurations;
     }
 }

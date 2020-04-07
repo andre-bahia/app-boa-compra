@@ -14,7 +14,7 @@ class ProductWeightTest extends TestCase
     {
         $productWeight = new ProductWeight(35);
         $this->assertInstanceOf(ProductWeight::class, $productWeight);
-        $this->assertEquals(35, $productWeight->getWeight());
+        $this->assertEquals(35, $productWeight->value());
     }
 
     public function testExceptionProductWeight()

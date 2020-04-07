@@ -3,11 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Domain\Company\Company;
+use App\Domain\Company\CompanyConfiguration;
 use App\Domain\Company\Vo\CompanyFixedValue;
-use App\Domain\Company\Vo\CompanyFixedValueExceedsWeight;
+use App\Domain\Company\Vo\CompanyMaxWeight;
+use App\Domain\Company\Vo\CompanyMinWeight;
 use App\Domain\Company\Vo\CompanyName;
 use App\Domain\Company\Vo\CompanyOnDemandValue;
-use App\Domain\Company\Vo\CompanyOnDemandValueExceedsWeight;
 use App\Domain\Product\Product;
 use App\Domain\Product\Vo\ProductName;
 use App\Domain\Product\Vo\ProductWeight;
@@ -98,22 +99,45 @@ class AppFixtures extends Fixture
     {
         $boaDex = new Company();
         $boaDex->setName(new CompanyName('BoaDex'));
-        $boaDex->setFixedValue(new CompanyFixedValue(10.00));
-        $boaDex->setOnDemandValue(new CompanyOnDemandValue(0.05));
+        $boaDexConfig = new CompanyConfiguration();
+        $boaDexConfig->setFixedValue(new CompanyFixedValue(10.00));
+        $boaDexConfig->setOnDemandValue(new CompanyOnDemandValue(0.05));
+        $boaDexConfig->setMinWeight(new CompanyMinWeight(0));
+        $boaDexConfig->setMaxWeight(new CompanyMaxWeight(10000));
+        $boaDexConfig->setCompany($boaDex);
+        $manager->persist($boaDexConfig);
         $manager->persist($boaDex);
 
         $boaLog = new Company();
         $boaLog->setName(new CompanyName('BoaLog'));
-        $boaLog->setFixedValue(new CompanyFixedValue(4.30));
-        $boaLog->setOnDemandValue(new CompanyOnDemandValue(0.12));
+        $boaLogConfig = new CompanyConfiguration();
+        $boaLogConfig->setFixedValue(new CompanyFixedValue(4.30));
+        $boaLogConfig->setOnDemandValue(new CompanyOnDemandValue(0.12));
+        $boaLogConfig->setMinWeight(new CompanyMinWeight(0));
+        $boaLogConfig->setMaxWeight(new CompanyMaxWeight(10000));
+        $boaLogConfig->setCompany($boaLog);
+        $manager->persist($boaLogConfig);
         $manager->persist($boaLog);
 
         $transBoa = new Company();
         $transBoa->setName(new CompanyName('Transboa'));
-        $transBoa->setFixedValue(new CompanyFixedValue(2.10));
-        $transBoa->setOnDemandValue(new CompanyOnDemandValue(1.10));
-        $transBoa->setFixedValueExceedsWeight(new CompanyFixedValueExceedsWeight(10.00));
-        $transBoa->setOnDemandValueExceedsWeight(new CompanyOnDemandValueExceedsWeight(0.01));
+        $transBoaConfig1 = new CompanyConfiguration();
+        $transBoaConfig1->setFixedValue(new CompanyFixedValue(2.10));
+        $transBoaConfig1->setOnDemandValue(new CompanyOnDemandValue(1.10));
+        $transBoaConfig1->setMinWeight(new CompanyMinWeight(0));
+        $transBoaConfig1->setMaxWeight(new CompanyMaxWeight(5));
+        $transBoaConfig1->setCompany($transBoa);
+        $manager->persist($transBoaConfig1);
+
+        $transBoaConfig2 = new CompanyConfiguration();
+        $transBoaConfig2->setFixedValue(new CompanyFixedValue(10.00));
+        $transBoaConfig2->setOnDemandValue(new CompanyOnDemandValue(0.01));
+        $transBoaConfig2->setMinWeight(new CompanyMinWeight(6));
+        $transBoaConfig2->setMaxWeight(new CompanyMaxWeight(10000));
+        $transBoaConfig2->setCompany($transBoa);
+        $transBoa->addConfiguration($transBoaConfig1);
+        $transBoa->addConfiguration($transBoaConfig2);
+        $manager->persist($transBoaConfig2);
         $manager->persist($transBoa);
 
         return [$boaDex, $boaLog, $transBoa];

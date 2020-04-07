@@ -30,7 +30,7 @@ class ProductWeight
         $this->weight = $weight;
     }
 
-    public function getWeight(): float
+    public function value(): float
     {
         return $this->weight;
     }
