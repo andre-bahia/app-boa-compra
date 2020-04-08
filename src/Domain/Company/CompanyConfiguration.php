@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="company_configurations")
  */
-class CompanyConfiguration
+class CompanyConfiguration implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -51,6 +51,14 @@ class CompanyConfiguration
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     protected Company $company;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * @return CompanyMinWeight
@@ -130,5 +138,19 @@ class CompanyConfiguration
     public function setCompany(Company $company): void
     {
         $this->company = $company;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+           'id' => $this->getId(),
+           'minWeight' => $this->getMinWeight()->value(),
+           'maxWeight' => $this->getMaxWeight()->value(),
+           'fixedValue' => $this->getFixedValue()->value(),
+           'onDemandValue' => $this->getOnDemandValue()->value()
+        ];
     }
 }

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="products")
  */
-class Product
+class Product implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -65,5 +65,17 @@ class Product
     public function setWeight(ProductWeight $weight): void
     {
         $this->weight = $weight;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()->value(),
+            'weight' => $this->getWeight()->value()
+        ];
     }
 }

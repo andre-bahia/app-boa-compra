@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="products_companies_winner")
  */
-class ProductsCompaniesWinner
+class ProductsCompaniesWinner implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -78,5 +78,19 @@ class ProductsCompaniesWinner
     public function setDistanceCost($distanceCost): void
     {
         $this->distanceCost = $distanceCost;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+          'company' => $this->getCompany()->getName()->value(),
+          'productName' => $this->getProduct()->getName()->value(),
+          'productWeight' => $this->getProduct()->getWeight()->value(),
+          'distance' => $this->getWinner()->getDistance()->value(),
+          'distanceCost' => $this->getDistanceCost()
+        ];
     }
 }

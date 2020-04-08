@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="companies")
  */
-class Company
+class Company implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -69,5 +69,19 @@ class Company
     public function getConfigurations(): Collection
     {
         return $this->configurations;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()->value(),
+            'configurations' => $this->getConfigurations()->map(function (CompanyConfiguration $item) {
+                return $item;
+            })->toArray()
+        ];
     }
 }
