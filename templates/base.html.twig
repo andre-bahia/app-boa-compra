@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}UOL BoaCompra{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    {% include 'nav.html.twig' %}
+    {% block body %}{% endblock %}
+    {% include 'footer.html.twig' %}
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>

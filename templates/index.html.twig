@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/chota.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form action="{{ path('home') }}" method="GET">
+            <div class="row">
+                <div class="col">
+                    <fieldset id="forms__select">
+                        <legend>Filtrar por empresa</legend>
+                        <p>
+                            <select name="company">
+                                <option value="">Selecione uma empresa</option>
+                                {% for company in companies %}
+                                    <option value="{{ company.id }}" {{ company.id == query.company ? 'selected' : '' }}>{{ company.name.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset id="forms__select">
+                        <legend>Filtrar por produto</legend>
+                        <p>
+                            <select name="product">
+                                <option value="">Selecione um produto</option>
+                                {% for product in products %}
+                                    <option value="{{ product.id }}" {{ product.id == query.product ? 'selected' : '' }}>{{ product.name.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right">
+                    <button class="button primary" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col">
+                <table class="striped">
+                    <thead>
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Produto</th>
+                        <th>Peso</th>
+                        <th>Distância</th>
+                        <th>Custo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {%  for item in data %}
+                            <tr>
+                                <td>{{ item.company }}</td>
+                                <td>{{ item.product }}</td>
+                                <td>{{ item.productWeight }} kg</td>
+                                <td>{{ item.distance }} km</td>
+                                <td>R$ {{ item.cost|number_format(2, ',', '.') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
