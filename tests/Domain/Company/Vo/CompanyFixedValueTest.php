@@ -1,11 +1,10 @@
 <?php
 
 
-namespace App\Tests\Company\Vo;
+namespace App\Tests\Company\Vo\Domain;
 
 
 use App\Domain\Company\Vo\CompanyFixedValue;
-use App\Domain\Product\Vo\ProductName;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 

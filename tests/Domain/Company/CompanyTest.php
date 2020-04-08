@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Company;
+namespace App\Tests\Company\Domain;
 
 
 use App\Domain\Company\Company;

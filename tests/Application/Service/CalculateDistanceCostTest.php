@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests;
+namespace App\Tests\Application\Service;
 
 
 use App\Application\Service\CalculateCostService;

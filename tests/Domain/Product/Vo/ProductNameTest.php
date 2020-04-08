@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Product\Vo;
+namespace App\Tests\Product\Vo\Domain;
 
 
 use App\Domain\Product\Vo\ProductName;
