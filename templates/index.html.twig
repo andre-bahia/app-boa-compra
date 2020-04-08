@@ -16,7 +16,7 @@
                             <select name="company">
                                 <option value="">Selecione uma empresa</option>
                                 {% for company in companies %}
-                                    <option value="{{ company.id }}" {{ company.id == query.company ? 'selected' : '' }}>{{ company.name.value }}</option>
+                                    <option value="{{ company.id }}" {{ query.company is defined and company.id == query.company ? 'selected' : '' }}>{{ company.name.value }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -29,7 +29,10 @@
                             <select name="product">
                                 <option value="">Selecione um produto</option>
                                 {% for product in products %}
-                                    <option value="{{ product.id }}" {{ product.id == query.product ? 'selected' : '' }}>{{ product.name.value }}</option>
+                                    <option value="{{ product.id }}"
+                                            {{ query.product is defined and product.id == query.product ? 'selected' : '' }}>
+                                            {{ product.name.value }}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </p>
