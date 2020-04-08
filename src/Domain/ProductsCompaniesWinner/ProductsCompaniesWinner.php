@@ -19,26 +19,26 @@ class ProductsCompaniesWinner
      * @ORM\ManyToOne(targetEntity="App\Domain\Product\Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
-    private $product;
+    private Product $product;
 
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Domain\Company\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
      */
-    private $company;
+    private Company $company;
 
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Domain\Winner\Winner")
      * @ORM\JoinColumn(name="winner_id", referencedColumnName="id", nullable=false)
      */
-    private $winner;
+    private Winner $winner;
 
     /**
      * @ORM\Column(name="distance_cost", type="decimal", precision=20, scale=2, nullable=true)
      */
-    private $distanceCost;
+    private float $distanceCost;
 
     public function getProduct(): Product
     {

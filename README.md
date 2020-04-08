@@ -12,7 +12,7 @@ php bin/console doctrine:fixtures:load --no-interaction
 
 - Calcula o custo para envio de cada brinde
 ````console
-php bin/console doctrine:fixtures:load --no-interaction
+php bin/console app:calculate-distance-cost
 ````
 
 - Apaga o banco da aplicação
