@@ -30,7 +30,19 @@ cd app-boa-compra/
 docker-compose up
 ```
 
-- A partir de agora todos esses comandos são executados dentro do container
+Para acessar o terminal dentro do container execute o comando:
+
+```console
+docker exec -it CONTAINER_ID sh
+```
+
+Depois que o todos os containers estiverem prontos você pode pegar 
+o CONTAINER_ID com o comando:
+```console
+docker ps
+```
+
+A partir de agora todos esses comandos são executados dentro do container.
 
 - Cria o banco da aplicação
 ```console
